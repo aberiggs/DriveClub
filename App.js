@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
 import MapView from 'react-native-maps'
-import { PROVIDER_GOOGLE } from 'react-native-maps'
+import { PROVIDER_GOOGLE, Marker } from 'react-native-maps'
 import * as Location from 'expo-location';
 
 
@@ -40,11 +40,26 @@ export default function App() {
     console.log(text);
   }
 
+  const UserMarker = () => {
+    if (location != null) {
+      return (
+        <Marker 
+          title="My Location"
+          coordinate={{latitude: location.latitude, longitude: location.longitude}}
+        />
+      )
+    }
+  }
+
   return (
     <View style={styles.container}>
       <MapView provider={PROVIDER_GOOGLE} 
       initialRegion={location} 
-      style={styles.map} />
+      style={styles.map} 
+      >
+        <UserMarker />
+      </MapView>
+      
       <StatusBar style="auto" />
     </View>
   );
